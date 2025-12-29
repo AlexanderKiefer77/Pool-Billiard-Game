@@ -1,6 +1,6 @@
 import { ctx, canvasNorm } from "../scripts/canvas.js";
 import { mouse } from "../scripts/mouse.js";
-import { sub, normalize, scale } from "../scripts/math.js";
+import { sub, normalize, scale, limit } from "../scripts/math.js";
 
 export class Controller {
     constructor(ball) {
@@ -8,6 +8,7 @@ export class Controller {
         this.vector = { x: 0, y: 0 };
         this.addControl();
         this.active = true;
+        this.maxLength = 300;
     }
 
     addControl() {
@@ -20,7 +21,7 @@ export class Controller {
     }
 
     update() {
-        this.vector = sub(mouse, this.ball.pos);
+        this.vector = limit(this.maxLength, sub(mouse, this.ball.pos));
     }
 
     draw() {

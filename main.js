@@ -1,20 +1,26 @@
-import { Ball } from "./Ball.js";
-import { clearCanvas } from "./canvas.js";
-import { drawCloth, drawWood } from "./table.js";
+import { Ball } from "./scripts/Ball.js";
+import { clearCanvas } from "./scripts/canvas.js";
+import { balls } from "./scripts/setupBalls.js";
+import { drawCloth, drawWood } from "./scripts/table.js";
 
-const b = new Ball({
-    pos: { x: 400, y: 300 },
-    vel: { x: 1, y: 1 },
-    color: "red",
-});
+// war Zwischenschritt, wurde gelöscht !
+// const b = new Ball({
+//     pos: { x: 400, y: 300 },
+//     vel: { x: 5, y: 5 },
+//     color: "red",
+// });
+drawCloth(); // Tischtuch zeichnen
+drawWood(); // Rand vom Tisch zeichnen
 
-function loop() {
-    clearCanvas();
-    drawCloth(); // Tischtuch zeichnen
-    drawWood(); // Rand vom Tisch zeichnen
-    b.update();
-    b.draw();
-    requestAnimationFrame(loop);
-}
+balls.forEach((ball) => ball.draw());
 
-loop();
+// function loop() {
+//     clearCanvas();
+//     drawCloth(); // Tischtuch zeichnen
+//     drawWood(); // Rand vom Tisch zeichnen
+//     b.update();
+//     b.draw();
+//     requestAnimationFrame(loop);
+// }
+
+// loop();

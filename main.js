@@ -1,9 +1,12 @@
 import { Ball } from "./models/ball.class.js";
 import { Controller } from "./models/controller.class.js";
+import { Pocket } from "./models/pocket.class.js";
 import { clearCanvas } from "./scripts/canvas.js";
 import { mouse } from "./scripts/mouse.js";
 import { balls, whiteBall } from "./scripts/setupBalls.js";
+import { pockets } from "./scripts/setupPockets.js";
 import { drawCloth, drawWood } from "./scripts/table.js";
+
 
 // war Zwischenschritt, wurde gelöscht !
 // const b = new Ball({
@@ -23,8 +26,9 @@ function loop() {
     clearCanvas();
     drawCloth(); // Tischtuch zeichnen
     drawWood(); // Rand vom Tisch zeichnen
+    pockets.forEach((p) => p.draw());
     controller.update();
-    balls.forEach(b => b.update(balls));
+    balls.forEach(b => b.update(balls, pockets));
     balls.forEach(b => b.draw());
     controller.draw();
     controller.active = balls.every(b => b.idle);

@@ -9,6 +9,7 @@ export class Ball {
         this.vel = vel ?? { x: 0, y: 0 }; // Geschwindigkeit
         this.size = 18;
         this.friction = 0.99; // Reibung
+        this.inPocket = false; // Ball in Tasche
     }
 
     get idle() { // für Ball bewegt sich nicht mehr
@@ -16,6 +17,7 @@ export class Ball {
     }
 
     draw() {
+        if (this.inPocket) return;
         ctx.beginPath();
         ctx.fillStyle = this.color;
         ctx.arc(this.pos.x, this.pos.y, this.size, 0, 2 * Math.PI);
@@ -23,12 +25,15 @@ export class Ball {
         ctx.closePath();
     }
 
-    update(balls) {
+    update(balls, pockets) {
         this.pos.x += this.vel.x;
         this.pos.y += this.vel.y;
         this.vel.x *= this.friction;
         this.vel.y *= this.friction;
+        this.handleTinyVelocities();
+        if (this.inPocket) return;
         this.bounceOfWalls();
+        this.checkPockets(pockets);
         this.collideWithBalls(balls);
         this.handleTinyVelocities();
     }
@@ -65,7 +70,7 @@ export class Ball {
 
     collideWithBalls(balls) {
         balls.forEach(ball => {
-            if (this == ball) return;
+            if (this == ball || ball.inPocket) return;
             const dist = distance(this.pos, ball.pos);
             // check for collision
             if (dist > this.size + ball.size) return;
@@ -80,6 +85,15 @@ export class Ball {
             const w = scale(1 / Math.pow(dist, 2) * dotProduct(x_d, v_d), x_d);
             this.vel = sub(this.vel, w);
             ball.vel = add(ball.vel, w);
+        })
+    }
+
+    checkPockets(pockets) {
+        pockets.forEach(pocket => {
+            if (pocket.includes(this)) {
+                this.inPocket = true;
+                return;
+            }
         })
     }
 }

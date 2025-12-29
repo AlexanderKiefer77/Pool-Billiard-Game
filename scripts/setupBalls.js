@@ -11,7 +11,7 @@ export const COLORS = {
     PURPLE: "rgb(90, 0, 170)",
     BLUE: "rgb(0, 80, 255)",
     BROWN: "rgb(150, 20, 0)",
-    GREEN: "rgb(0, 90, 0)",
+    GREEN: "rgba(7, 36, 7, 1)",
 };
 
 const start = {

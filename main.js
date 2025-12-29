@@ -4,7 +4,7 @@ import { drawCloth, drawWood } from "./table.js";
 
 const b = new Ball({
     pos: { x: 400, y: 300 },
-    vel: { x: 0, y: 0 },
+    vel: { x: 1, y: 1 },
     color: "red",
 });
 

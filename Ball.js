@@ -1,4 +1,4 @@
-import { ctx } from "./canvas.js";
+import { canvas, ctx, margin } from "./canvas.js";
 
 export class Ball {
     constructor({ pos, color, vel }) {
@@ -19,5 +19,26 @@ export class Ball {
     update() {
         this.pos.x += this.vel.x;
         this.pos.y += this.vel.y;
+        this.bounceOfWalls();
+    }
+
+    bounceOfWalls() { // wenn Ball an Bande anstösst
+        // horizontal
+        if (this.pos.x + this.size >= canvas.width - margin) {
+            this.pos.x = canvas.width - margin - this.size;
+            this.vel.x *= -1;
+        } else if (this.pos.x - this.size <= margin) {
+            this.pos.x = this.size + margin;
+            this.vel.x *= -1;
+        }
+
+        // vertikal
+        if (this.pos.y + this.size >= canvas.height - margin) {
+            this.pos.y = canvas.height - margin - this.size;
+            this.vel.y *= -1;
+        } else if (this.pos.y - this.size <= margin) {
+            this.pos.y = this.size + margin;
+            this.vel.y *= -1;
+        }
     }
 }

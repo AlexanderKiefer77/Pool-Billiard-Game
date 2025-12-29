@@ -24,7 +24,7 @@ function loop() {
     drawCloth(); // Tischtuch zeichnen
     drawWood(); // Rand vom Tisch zeichnen
     controller.update();
-    balls.forEach(b => b.update());
+    balls.forEach(b => b.update(balls));
     balls.forEach(b => b.draw());
     controller.draw();
     controller.active = balls.every(b => b.idle);

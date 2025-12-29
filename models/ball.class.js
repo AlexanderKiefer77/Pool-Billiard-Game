@@ -1,4 +1,4 @@
-import { canvas, ctx, margin } from "./canvas.js";
+import { canvas, ctx, margin } from "../scripts/canvas.js";
 
 export class Ball {
     constructor({ pos, color, vel }) {

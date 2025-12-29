@@ -1,4 +1,4 @@
-import { Ball } from "./Ball.js";
+import { Ball } from "../models/ball.class.js";
 import { canvas, margin } from "./canvas.js";
 
 // Ballfarben
@@ -143,3 +143,5 @@ export const balls = [
         color: COLORS.BROWN
     }),
 ];
+
+export const whiteBall = balls.find(b => b.color == COLORS.WHITE);

@@ -1,6 +1,6 @@
-import { ctx } from "../scripts/canvas.js";
+import { ctx, canvasNorm } from "../scripts/canvas.js";
 import { mouse } from "../scripts/mouse.js";
-import { canvasNorm } from "../scripts/canvas.js";
+import { sub, normalize, scale } from "../scripts/math.js";
 
 export class Controller {
     constructor(ball) {
@@ -15,16 +15,18 @@ export class Controller {
             if (!this.active) return;
             this.active = false;
             const factor = 0.15;
-            this.ball.vel.x = factor * this.vector.x;
-            this.ball.vel.y = factor * this.vector.y;
+            this.ball.vel = scale(factor, this.vector);
+            // this.ball.vel.x = factor * this.vector.x; // ersetzt mit Formel in math.js
+            // this.ball.vel.y = factor * this.vector.y; // ersetzt mit Formel in math.js
         })
     }
 
     update() {
-        this.vector = {
-            x: mouse.x - this.ball.pos.x,
-            y: mouse.y - this.ball.pos.y,
-        }
+        this.vector = sub(mouse, this.ball.pos);
+        // { // ersetzt mit Formel in math.js
+        //     x: mouse.x - this.ball.pos.x,
+        //     y: mouse.y - this.ball.pos.y,
+        // }
     }
 
     draw() {
@@ -34,19 +36,25 @@ export class Controller {
         ctx.lineWidth = 10;
         ctx.lineCap = "round";
         ctx.strokeStyle = "rgba(255, 255, 255, 0.5)";
+        ctx.translate(this.ball.pos.x, this.ball.pos.y); // in Zusammenhang mit math.js hinzugefügt
         ctx.beginPath();
-        ctx.moveTo(this.ball.pos.x, this.ball.pos.y);
-        ctx.lineTo(mouse.x, mouse.y);
+        // ctx.moveTo(this.ball.pos.x, this.ball.pos.y); // ersetzt mit Formel in math.js
+        ctx.moveTo(0, 0);
+        // ctx.lineTo(mouse.x, mouse.y); // ersetzt mit Formel in math.js
+        ctx.lineTo(this.vector.x, this.vector.y);
         ctx.stroke();
         ctx.closePath();
         // thin line
         ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.moveTo(this.ball.pos.x, this.ball.pos.y);
-        const vectorLength = Math.sqrt(this.vector.x * this.vector.x + this.vector.y * this.vector.y);
-        ctx.lineTo(
-            this.ball.pos.x + canvasNorm / vectorLength * this.vector.x,
-            this.ball.pos.y + canvasNorm / vectorLength * this.vector.y);
+        // ctx.moveTo(this.ball.pos.x, this.ball.pos.y); // ersetzt mit Formel in math.js
+        ctx.moveTo(0, 0);
+        // const vectorLength = Math.sqrt(this.vector.x * this.vector.x + this.vector.y * this.vector.y); // in Zusammenhang mit mit math.js entfernt
+        const targetFar = scale(canvasNorm, normalize(this.vector));  // in Zusammenhang mit math.js hinzugefügt
+        // ctx.lineTo( // ersetzt mit Formel in math.js
+        //     this.ball.pos.x + canvasNorm / vectorLength * this.vector.x,
+        //     this.ball.pos.y + canvasNorm / vectorLength * this.vector.y);
+        ctx.lineTo(targetFar.x, targetFar.y);
         ctx.stroke();
         ctx.restore();
     }

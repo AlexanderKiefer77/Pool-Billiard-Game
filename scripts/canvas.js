@@ -7,5 +7,7 @@ canvas.width = 1200 + 2 * margin;
 canvas.height = 600 + 2 * margin;
 
 export function clearCanvas() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);    
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
+
+export const canvasNorm = Math.sqrt(canvas.width * canvas.width + canvas.height * canvas.height);

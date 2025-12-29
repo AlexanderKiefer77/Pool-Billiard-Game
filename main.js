@@ -27,6 +27,7 @@ function loop() {
     balls.forEach(b => b.update());
     balls.forEach(b => b.draw());
     controller.draw();
+    controller.active = balls.every(b => b.idle);
     requestAnimationFrame(loop);
 }
 loop();

@@ -144,4 +144,5 @@ export const balls = [
     }),
 ];
 
-export const whiteBall = balls.find(b => b.color == COLORS.WHITE);
+// mit game.class.js dorthin verschoben in constructor
+// export const whiteBall = balls.find(b => b.color == COLORS.WHITE);

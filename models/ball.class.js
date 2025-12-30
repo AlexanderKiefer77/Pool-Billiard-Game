@@ -25,7 +25,7 @@ export class Ball {
         ctx.closePath();
     }
 
-    update(balls, pockets) {
+    update(game) {
         this.pos.x += this.vel.x;
         this.pos.y += this.vel.y;
         this.vel.x *= this.friction;
@@ -33,9 +33,9 @@ export class Ball {
         this.handleTinyVelocities();
         if (this.inPocket) return;
         this.bounceOfWalls();
-        this.checkPockets(pockets);
-        this.collideWithBalls(balls);
-        this.handleTinyVelocities();
+        this.checkPockets(game.pockets);
+        this.collideWithBalls(game.balls);
+        //this.handleTinyVelocities();
     }
 
     bounceOfWalls() { // wenn Ball an Bande anstösst
@@ -95,5 +95,11 @@ export class Ball {
                 return;
             }
         })
+    }
+
+    reset() {
+        // TODO
+        console.log("reset ball");
+        
     }
 }

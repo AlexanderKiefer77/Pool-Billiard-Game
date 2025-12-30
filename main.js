@@ -4,7 +4,7 @@
 import { Game } from "./models/game.class.js";
 import { clearCanvas } from "./scripts/canvas.js";
 // import { mouse } from "./scripts/mouse.js"; // in Verbindung mir game.class.js entfernt
-import { balls, whiteBall } from "./scripts/setupBalls.js";
+import { balls } from "./scripts/setupBalls.js";
 import { pockets } from "./scripts/setupPockets.js";
 // import { drawCloth, drawWood } from "./scripts/table.js"; // in Verbindung mir game.class.js entfernt
 
@@ -17,12 +17,12 @@ const game = new Game({balls, pockets});
 //     color: "red",
 // });
 
-const controller = new Controller(whiteBall);
+// const controller = new Controller(whiteBall);
 
-drawCloth(); // Tischtuch zeichnen
-drawWood(); // Rand vom Tisch zeichnen
+// drawCloth(); // Tischtuch zeichnen
+// drawWood(); // Rand vom Tisch zeichnen
 
-balls.forEach((ball) => ball.draw());
+// balls.forEach((ball) => ball.draw());
 
 function loop() {
     clearCanvas();
@@ -38,5 +38,5 @@ function loop() {
     game.draw();   // neu in Verbindung mit game.class.js
     requestAnimationFrame(loop);
 }
-loop();
 
+loop();

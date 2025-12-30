@@ -20,12 +20,13 @@ export class Game {
         drawWood(); // Rand vom Tisch zeichnen
         this.pockets.forEach((p) => p.draw());
         this.balls.forEach(b => b.draw());
-        controller.draw();
+        this.controller.draw();
     }
 
     update() {
         if (!this.playing) return;
         this.balls.forEach((b) => b.update(this));
+        this.controller.update();
         this.idle = this.balls.every(b => b.idle || b.inPocket);
         if (this.idle) {
             this.controller.active = true;

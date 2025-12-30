@@ -31,10 +31,22 @@ export class Game {
         if (this.idle) {
             this.controller.active = true;
             if (this.blackBall.inPocket) {
-                window.alert("Black ball is in Pocket");
+                // window.alert("Black ball is in Pocket");
+                this.finish();
             } else if (this.whiteBall.inPocket) {
-                this.whiteBall.reset();
+                this.whiteBall.reset(this);
             }
+        }
+    }
+
+    finish() {
+        this.playing = false;
+        this.controller.active = false;
+        this.won = !this.whiteBall.inPocket && this.balls.every(ball => ball == this.whiteBall || ball.inPocket);
+        if (this.won) {
+            window.alert("You won the game !")
+        } else {
+            window.alert("You lost the game !")
         }
     }
 }

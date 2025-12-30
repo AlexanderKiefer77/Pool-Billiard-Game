@@ -5,8 +5,10 @@ import { dotProduct, scale, sub, add, distance } from "../scripts/math.js";
 export class Ball {
     constructor({ pos, color, vel }) {
         this.pos = pos;
+        this.originalPos = { ...this.pos }; // für reset funktion
         this.color = color;
         this.vel = vel ?? { x: 0, y: 0 }; // Geschwindigkeit
+        this.originalVel = { ...this.vel }; // für reset funktion
         this.size = 18;
         this.friction = 0.99; // Reibung
         this.inPocket = false; // Ball in Tasche
@@ -97,9 +99,25 @@ export class Ball {
         })
     }
 
-    reset() {
-        // TODO
-        console.log("reset ball");
-        
+    reset(game) {
+        this.inPocket = false;
+        this.pos = { ...this.originalPos };
+        this.vel = { ...this.originalVel };
+        if (this == game.whiteBall) {
+            this.avoidOtherBalls(game.balls);
+        }
+    }
+
+    intersects(ball) {
+        return distance(this.pos, ball.pos) <= this.size + ball.size;
+    }
+
+    avoidOtherBalls(balls) { // für whitball nach reset zu positionieren falls ein anderer Ball auf dem Punkt liegt
+        const delta = 4;
+        while (balls.some(ball => ball != this && this.intersects(ball))) {
+            const coord = Math.random() < 0.5 ? "x" : "y";
+            const sign = Math.random() < 0.5 ? +1 : -1;
+            this.pos[coord] += delta * sign;
+        };
     }
 }

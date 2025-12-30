@@ -22,10 +22,11 @@ function loop() {
     game.draw();
     polygon.draw();
 
-    const segment = polygon.intersectionSegment(game.whiteBall);
-    if (segment) {
-        console.log(JSON.stringify(segment));
-    };
+    // Zwischenschritt zum ausloggen
+    // const segment = polygon.intersectionSegment(game.whiteBall);
+    // if (segment) {
+    //     console.log(JSON.stringify(segment));
+    // };
 
     // zeichnet schattige Punkt auf Startpunkt vom whiteBall
     ctx.save();

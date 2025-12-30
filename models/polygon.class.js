@@ -4,15 +4,16 @@ import { segmentIntersectsCircle } from "../scripts/math.js";
 export class Polygon {
     constructor({ coords }) {
         this.coords = coords;
+        this.color = "purple";
     }
 
     draw() {
+        ctx.fillStyle = this.color;
         ctx.beginPath();
         ctx.moveTo(this.coords[0].x, this.coords[0].y);
         for (let i = 1; i < this.coords.length; i++) {
             ctx.lineTo(this.coords[i].x, this.coords[i].y);
         }
-        ctx.fillStyle = "purple";
         ctx.fill();
         ctx.closePath();
     }

@@ -13,6 +13,13 @@ export class Game {
         this.whiteBall = this.balls.find(b => b.color == COLORS.WHITE);
         this.blackBall = this.balls.find(b => b.color == COLORS.BLACK);
         this.controller = new Controller(this.whiteBall);
+        this.enableRestart();
+    }
+
+    enableRestart() {
+        document.getElementById("restartBtn").addEventListener("click", () => {
+            this.restart();
+        })
     }
 
     draw() {
@@ -48,5 +55,12 @@ export class Game {
         } else {
             window.alert("You lost the game !")
         }
+    }
+
+    restart() { // für Restart Button
+        this.balls.forEach(b => b.reset(this));
+        this.won = null;
+        this.idle = true;
+        this.playing = true;
     }
 }

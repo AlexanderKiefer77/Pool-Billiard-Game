@@ -4,23 +4,25 @@ import { clearCanvas, ctx } from "./scripts/canvas.js";
 import { openDialog } from "./scripts/dialog.js";
 import { balls } from "./scripts/setupBalls.js";
 import { pockets } from "./scripts/setupPockets.js";
+import { bumpers } from "./scripts/setupBumpers.js";
 
-const game = new Game({ balls, pockets });
+const game = new Game({ balls, pockets, bumpers });
 
-const polygon = new Polygon({
-    coords: [
-        { x: 400, y: 200 },
-        { x: 600, y: 200 },
-        { x: 500, y: 400 },
-        { x: 400, y: 200 }
-    ],
-});
+// in setupBumpers.js verschoben
+// const polygon = new Polygon({
+//     coords: [
+//         { x: 400, y: 200 },
+//         { x: 600, y: 200 },
+//         { x: 500, y: 400 },
+//         { x: 400, y: 200 }
+//     ],
+// });
 
 function loop() {
     clearCanvas();
     game.update();
     game.draw();
-    polygon.draw();
+    //polygon.draw();
 
     // Zwischenschritt zum ausloggen
     // const segment = polygon.intersectionSegment(game.whiteBall);

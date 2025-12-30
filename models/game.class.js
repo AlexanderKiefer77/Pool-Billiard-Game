@@ -5,9 +5,10 @@ import { openDialog, closeDialog } from "../scripts/dialog.js";
 
 
 export class Game {
-    constructor({ balls, pockets }) {
+    constructor({ balls, pockets, bumpers }) {
         this.balls = balls;
         this.pockets = pockets;
+        this.bumpers = bumpers;
         this.won = null;
         this.playing = true;
         this.idle = true;
@@ -27,7 +28,8 @@ export class Game {
         drawCloth(); // Tischtuch zeichnen
         drawWood(); // Rand vom Tisch zeichnen
         this.pockets.forEach((p) => p.draw());
-        this.balls.forEach(b => b.draw());
+        this.bumpers.forEach((b) => b.draw());
+        this.balls.forEach((b) => b.draw());
         this.controller.draw();
     }
 

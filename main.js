@@ -8,28 +8,11 @@ import { bumpers } from "./scripts/setupBumpers.js";
 
 const game = new Game({ balls, pockets, bumpers });
 
-// in setupBumpers.js verschoben
-// const polygon = new Polygon({
-//     coords: [
-//         { x: 400, y: 200 },
-//         { x: 600, y: 200 },
-//         { x: 500, y: 400 },
-//         { x: 400, y: 200 }
-//     ],
-// });
-
 function loop() {
     clearCanvas();
     game.update();
     game.draw();
-    //polygon.draw();
-
-    // Zwischenschritt zum ausloggen
-    // const segment = polygon.intersectionSegment(game.whiteBall);
-    // if (segment) {
-    //     console.log(JSON.stringify(segment));
-    // };
-
+    
     // zeichnet schattige Punkt auf Startpunkt vom whiteBall
     ctx.save();
     ctx.fillStyle = "rgba(255, 255, 255, 0.1)";

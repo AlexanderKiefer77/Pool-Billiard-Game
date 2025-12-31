@@ -25,10 +25,6 @@ export class Game {
     }
 
     draw() {
-        // drawCloth(); // in Verbindung mit zweitem Canvas in function drawTable verschoben
-        // drawWood(); // in Verbindung mit zweitem Canvas in function drawTable verschoben
-        // this.pockets.forEach((p) => p.draw()); // in Verbindung mit zweitem Canvas in function drawTable verschoben
-        // this.bumpers.forEach((b) => b.draw()); // in Verbindung mit zweitem Canvas in function drawTable verschoben
         this.balls.forEach((b) => b.draw());
         this.controller.draw();
     }

@@ -15,8 +15,9 @@
     </menu>
 
     <main id="canvasContainer">
-        <canvas id="canvas"></canvas>
-        <canvas id="tableCanvas"></canvas>
+        <!-- entweder die canvas in der richtigen Reihenfolge von hinten nach vorne anordnen, oder in css per z-index definieren -->
+        <canvas id="tableCanvas"></canvas> <!-- für die Sachen, die nur einmal gezeichnet werden sollen (Tisch, Pockets und Bumpers)-->
+        <canvas id="canvas"></canvas> <!-- für die Sachen, die für das Spiel permanent neu gezeichnet werden sollen (Bälle und Controller)-->
     </main>
 
     <dialog id="dialog">

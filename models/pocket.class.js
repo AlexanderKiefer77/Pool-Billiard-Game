@@ -1,4 +1,4 @@
-import { ctx } from "../scripts/canvas.js";
+import { tctx } from "../scripts/canvas.js";
 import { distance } from "../scripts/math.js";
 
 export const pocketSize = 30;
@@ -8,7 +8,7 @@ export class Pocket {
         this.pos = pos;
         this.size = pocketSize;
         this.color = "#000";
-        this.gradient = ctx.createRadialGradient(
+        this.gradient = tctx.createRadialGradient(
             0,
             0,
             0,
@@ -21,16 +21,16 @@ export class Pocket {
     }
 
     draw() {
-        ctx.save();
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = "#000";
-        ctx.translate(this.pos.x, this.pos.y);
-        ctx.fillStyle = this.gradient;
-        ctx.beginPath();
-        ctx.arc(0, 0, this.size, 0, 2 * Math.PI);
-        ctx.fill();
-        ctx.closePath();
-        ctx.restore();
+        tctx.save();
+        tctx.shadowBlur = 10;
+        tctx.shadowColor = "#000";
+        tctx.translate(this.pos.x, this.pos.y);
+        tctx.fillStyle = this.gradient; // Farbe Pocket
+        tctx.beginPath();
+        tctx.arc(0, 0, this.size, 0, 2 * Math.PI);
+        tctx.fill();
+        tctx.closePath();
+        tctx.restore();
     }
 
     includes(ball) {

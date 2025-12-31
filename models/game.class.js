@@ -25,12 +25,19 @@ export class Game {
     }
 
     draw() {
+        // drawCloth(); // in Verbindung mit zweitem Canvas in function drawTable verschoben
+        // drawWood(); // in Verbindung mit zweitem Canvas in function drawTable verschoben
+        // this.pockets.forEach((p) => p.draw()); // in Verbindung mit zweitem Canvas in function drawTable verschoben
+        // this.bumpers.forEach((b) => b.draw()); // in Verbindung mit zweitem Canvas in function drawTable verschoben
+        this.balls.forEach((b) => b.draw());
+        this.controller.draw();
+    }
+
+    drawTable() { // dadurch werden diese Sachen nur einmal gezeichnet auf dem hinteren canvas. Erhöht die Performance
         drawCloth(); // Tischtuch zeichnen
         drawWood(); // Rand vom Tisch zeichnen
         this.pockets.forEach((p) => p.draw());
         this.bumpers.forEach((b) => b.draw());
-        this.balls.forEach((b) => b.draw());
-        this.controller.draw();
     }
 
     update() {

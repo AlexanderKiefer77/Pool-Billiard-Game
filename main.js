@@ -2,6 +2,8 @@ import { clearCanvas, ctx } from "./scripts/canvas.js";
 import { openDialog } from "./scripts/dialog.js";
 import { game } from "./scripts/setupGame.js";
 
+game.drawTable(); // ruft diese Funktion auf, zeichnet dann den "Hinteren Canvas"
+
 function loop() {
     clearCanvas();
     game.update();

@@ -23,6 +23,7 @@ export class Ball {
         this.gradient.addColorStop(0.4, "rgba(255, 255, 255, 0)"); // Design Bälle
         this.gradient.addColorStop(0.7, "rgba(0, 0, 0, 0)"); // Schatten im Bällen
         this.gradient.addColorStop(1, "rgba(0, 0, 0, 0.3)"); // Schatten im Bällen
+        this.alpha = 1;
     }
 
     get idle() { // für Ball bewegt sich nicht mehr
@@ -30,27 +31,37 @@ export class Ball {
     }
 
     draw() {
-        if (this.inPocket) return;
+        // pocket animation
+        if (this.alpha == 0) return;
+        if (this.inPocket) {
+            this.alpha = Math.max(0, this.alpha - 0.2);
+        }
         // prepare drawing
         const shadowFactor = { // für Schatten der Bälle flexibel zu machen
             x: ((this.pos.x - canvas.width / 2) / canvas.width) * 0.5,
             y: 0.25,
-        }
+        };
         ctx.save();
+        ctx.globalAlpha = this.alpha;
         ctx.translate(this.pos.x, this.pos.y); // für gradient auf Bälle
         // drwa shadow
-        ctx.beginPath();
-        ctx.arc(
-            shadowFactor.x * this.size,
-            shadowFactor.y * this.size,
-            this.size,
-            0,
-            2 * Math.PI,
-        );
-        ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
-        ctx.fill();
-        ctx.closePath();
+        // ctx.beginPath();
+        // ctx.arc(
+        //     shadowFactor.x * this.size,
+        //     shadowFactor.y * this.size,
+        //     this.size,
+        //     0,
+        //     2 * Math.PI,
+        // );
+        // ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
+        // ctx.fill();
+        // ctx.closePath();
+
         // draw regular ball
+        ctx.shadowBlur = 3; 
+        ctx.shadowColor = "rgba(0, 0, 0, 0.15)";
+        ctx.shadowOffsetX = 5;
+        ctx.shadowOffsetY = 2;
         ctx.beginPath();
         ctx.arc(0, 0, this.size, 0, 2 * Math.PI);
         ctx.fillStyle = this.color;
@@ -137,6 +148,7 @@ export class Ball {
 
     reset(game) {
         this.inPocket = false;
+        this.alpha = 1;
         this.pos = { ...this.originalPos };
         this.vel = { ...this.originalVel };
         if (this == game.whiteBall) {

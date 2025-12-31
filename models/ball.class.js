@@ -1,5 +1,5 @@
 import { canvas, ctx, margin } from "../scripts/canvas.js";
-import { dotProduct, scale, sub, add, distance } from "../scripts/math.js";
+import { dotProduct, scale, sub, add, distance, angleBetween, rotate } from "../scripts/math.js";
 // import { balls } from "../scripts/setupBalls.js";
 
 export class Ball {
@@ -35,6 +35,7 @@ export class Ball {
         this.handleTinyVelocities();
         if (this.inPocket) return;
         this.bounceOfWalls();
+        this.bounceOfBumpers(game.bumpers);
         this.checkPockets(game.pockets);
         this.collideWithBalls(game.balls);
         //this.handleTinyVelocities();
@@ -119,5 +120,17 @@ export class Ball {
             const sign = Math.random() < 0.5 ? +1 : -1;
             this.pos[coord] += delta * sign;
         };
+    }
+
+    bounceOfBumpers(bumpers) {
+        bumpers.forEach(bumper => {
+            const segment = bumper.intersectionSegment(this);
+            if (segment != null) {
+                const [a, b] = segment;
+                const vector = sub(b, a);
+                const angle = angleBetween(this.vel, vector);
+                this.vel = rotate(2 * angle, this.vel);
+            }
+        })
     }
 }

@@ -50,6 +50,19 @@ export function dotProduct(v, w) {
     return v.x * w.x + v.y * w.y;
 }
 
+// calculate the angle between two vectors
+export function angleBetween(v, w) {
+    return Math.acos(dotProduct(v, w) / (norm(v) * norm(w)));
+}
+
+// rotate a vector around some angle
+export function rotate(angle, v) {
+    return {
+        x: v.x * Math.cos(angle) - v.y * Math.sin(angle),
+        y: v.x * Math.sin(angle) + v.y * Math.cos(angle)
+    };
+}
+
 // solve a quadratic equation ut^2 + vt + w = 0
 function solveRealQuadratic(u, v, w) {
     const discriminant = v * v - 4 * u * w;

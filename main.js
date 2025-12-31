@@ -1,12 +1,16 @@
-import { Game } from "./models/game.class.js";
-import { Polygon } from "./models/polygon.class.js";
+// import { Game } from "./models/game.class.js"; // in Verbindung mit setupGame.js geändert
+// import { Polygon } from "./models/polygon.class.js"; // in Verbindung mit setupGame.js geändert
+
 import { clearCanvas, ctx } from "./scripts/canvas.js";
 import { openDialog } from "./scripts/dialog.js";
-import { balls } from "./scripts/setupBalls.js";
-import { pockets } from "./scripts/setupPockets.js";
-import { bumpers } from "./scripts/setupBumpers.js";
+import { game } from "./scripts/setupGame.js";
 
-const game = new Game({ balls, pockets, bumpers });
+// import { balls } from "./scripts/setupBalls.js"; // in Verbindung mit setupGame.js geändert
+// import { pockets } from "./scripts/setupPockets.js"; // in Verbindung mit setupGame.js geändert
+// import { bumpers } from "./scripts/setupBumpers.js"; // in Verbindung mit setupGame.js geändert
+
+//  // in Verbindung mit setupGame.js geändert
+// const game = new Game({ balls, pockets, bumpers });
 
 function loop() {
     clearCanvas();

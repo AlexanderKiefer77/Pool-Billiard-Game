@@ -2,10 +2,13 @@ import { tctx } from "../scripts/canvas.js";
 import { distance } from "../scripts/math.js";
 
 export const pocketSize = 30;
+export const cornerOffset = 12; // damit die Ecktaschen etwas verschoben werden
 
 export class Pocket {
-    constructor({ pos }) {
+    constructor({ pos, type, rotation }) {
         this.pos = pos;
+        this.type = type;
+        this.rotation = rotation;
         this.size = pocketSize;
         this.color = "#000";
         this.gradient = tctx.createRadialGradient(
@@ -30,6 +33,38 @@ export class Pocket {
         tctx.arc(0, 0, this.size, 0, 2 * Math.PI);
         tctx.fill();
         tctx.closePath();
+        tctx.restore();
+    }
+
+    drawMounting() { // gelbe Linie um Pockets
+        tctx.save();
+        const width = 10;
+        tctx.lineWidth = width;
+        tctx.strokeStyle = "rgb(230, 180, 0)";
+        tctx.lineCap = "round";
+        tctx.shadowBlur = 10;
+        tctx.shadowColor = "rgba(255, 200, 0, 0.25)";
+        tctx.translate(this.pos.x, this.pos.y);
+        tctx.rotate(this.rotation * (Math.PI / 180));
+        if (this.type == "corner") {
+            const overflow = 60;
+            const d = 0.16;
+            tctx.beginPath();
+            tctx.moveTo(-width / 2 - cornerOffset, this.size + overflow - cornerOffset);
+            tctx.arc(0, 0, this.size + width / 2, (0.5 + d) * Math.PI, (2 - d) * Math.PI);
+            tctx.lineTo(this.size + overflow - cornerOffset, -width / 2 - cornerOffset);
+            tctx.stroke();
+            tctx.closePath();
+        } else if (this.type == "edge") {
+            const overflow = 50;
+            const d = 0.04;
+            tctx.beginPath();
+            tctx.moveTo(-this.size - overflow, -width / 2);
+            tctx.arc(0, 0, this.size + width / 2, (1 + d) * Math.PI, (2 - d) * Math.PI);
+            tctx.lineTo(this.size + overflow, -width / 2);
+            tctx.stroke();
+            tctx.closePath();
+        }
         tctx.restore();
     }
 

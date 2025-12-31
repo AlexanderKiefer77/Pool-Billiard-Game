@@ -8,11 +8,6 @@ export function drawCloth() {
 
 // Rand vom Tisch zeichnen
 export function drawWood() {
-    // tctx.fillStyle = "hsl(16, 76%, 30%)";
-    // tctx.fillRect(0, 0, canvas.width, margin); // oben
-    // tctx.fillRect(0, canvas.height - margin, canvas.width, margin); // unten
-    // tctx.fillRect(0, 0, margin, canvas.height); // links
-    // tctx.fillRect(canvas.width - margin, 0, margin, canvas.height); // rechts
 
     let gradient;
     function setupGradient() {

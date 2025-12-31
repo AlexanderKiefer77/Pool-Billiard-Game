@@ -34,6 +34,7 @@ export class Game {
         drawWood(); // Rand vom Tisch zeichnen
         this.pockets.forEach((p) => p.draw());
         this.bumpers.forEach((b) => b.draw());
+        this.pockets.forEach((p) => p.drawMounting()); // gelbe Linie um Pocket
     }
 
     update() {

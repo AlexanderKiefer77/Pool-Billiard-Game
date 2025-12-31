@@ -16,6 +16,7 @@ canvas {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+    box-shadow: 0px 0px 25px #caf3, 0px 0px 100px #caf2;
 }
 
 /* menu */

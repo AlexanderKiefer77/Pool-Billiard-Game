@@ -12,6 +12,17 @@ export class Ball {
         this.size = 18;
         this.friction = 0.99; // Reibung
         this.inPocket = false; // Ball in Tasche
+        this.gradient = ctx.createRadialGradient(  // Design Bälle
+            -0.4 * this.size, // x-pos
+            -0.4 * this.size, // y-pos
+            1,
+            0,
+            0,
+            this.size); // Design Bälle
+        this.gradient.addColorStop(0, "rgba(255, 255, 255, 0.25)"); // Design Bälle
+        this.gradient.addColorStop(0.4, "rgba(255, 255, 255, 0)"); // Design Bälle
+        this.gradient.addColorStop(0.7, "rgba(0, 0, 0, 0)"); // Schatten im Bällen
+        this.gradient.addColorStop(1, "rgba(0, 0, 0, 0.3)"); // Schatten im Bällen
     }
 
     get idle() { // für Ball bewegt sich nicht mehr
@@ -20,11 +31,35 @@ export class Ball {
 
     draw() {
         if (this.inPocket) return;
+        // prepare drawing
+        const shadowFactor = { // für Schatten der Bälle flexibel zu machen
+            x: ((this.pos.x - canvas.width / 2) / canvas.width) * 0.5,
+            y: 0.25,
+        }
+        ctx.save();
+        ctx.translate(this.pos.x, this.pos.y); // für gradient auf Bälle
+        // drwa shadow
         ctx.beginPath();
-        ctx.fillStyle = this.color;
-        ctx.arc(this.pos.x, this.pos.y, this.size, 0, 2 * Math.PI);
+        ctx.arc(
+            shadowFactor.x * this.size,
+            shadowFactor.y * this.size,
+            this.size,
+            0,
+            2 * Math.PI,
+        );
+        ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
         ctx.fill();
         ctx.closePath();
+        // draw regular ball
+        ctx.beginPath();
+        ctx.arc(0, 0, this.size, 0, 2 * Math.PI);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+        // draw light effects
+        ctx.fillStyle = this.gradient; // für gradient auf Bälle
+        ctx.fill(); // für gradient auf Bälle
+        ctx.closePath();
+        ctx.restore();
     }
 
     update(game) {

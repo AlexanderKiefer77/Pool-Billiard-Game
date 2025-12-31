@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pool Billiard Game</title>
+    <link rel="icon" href="./assets/favicon.ico" type="image/x-icon">
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -16,8 +17,10 @@
 
     <main id="canvasContainer">
         <!-- entweder die canvas in der richtigen Reihenfolge von hinten nach vorne anordnen, oder in css per z-index definieren -->
-        <canvas id="tableCanvas"></canvas> <!-- für die Sachen, die nur einmal gezeichnet werden sollen (Tisch, Pockets und Bumpers)-->
-        <canvas id="canvas"></canvas> <!-- für die Sachen, die für das Spiel permanent neu gezeichnet werden sollen (Bälle und Controller)-->
+        <canvas id="tableCanvas"></canvas>
+        <!-- für die Sachen, die nur einmal gezeichnet werden sollen (Tisch, Pockets und Bumpers)-->
+        <canvas id="canvas"></canvas>
+        <!-- für die Sachen, die für das Spiel permanent neu gezeichnet werden sollen (Bälle und Controller)-->
     </main>
 
     <dialog id="dialog">

@@ -1,6 +1,7 @@
 import { ctx, canvasNorm } from "../scripts/canvas.js";
 import { mouse } from "../scripts/mouse.js";
-import { sub, normalize, scale, limit } from "../scripts/math.js";
+import { sub, normalize, scale, limit, norm } from "../scripts/math.js";
+import { SOUND } from "../scripts/sound.js";
 
 export class Controller {
     constructor(ball) {
@@ -17,6 +18,12 @@ export class Controller {
             this.active = false;
             const factor = 0.15;
             this.ball.vel = scale(factor, this.vector);
+            // play sound, abhhängig von Geschwindigkeit
+            const speed = norm(factor, this.vector);
+            const volume = Math.min(1, speed / (factor * this.maxLength));          
+            // SOUND.CUE.volume = volume;  // aus Tutorial-funktioniert aber so nicht
+            SOUND.CUE.volume = 0.3;
+            SOUND.CUE.play();
         })
     }
 

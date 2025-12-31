@@ -1,6 +1,6 @@
 import { canvas, ctx, margin } from "../scripts/canvas.js";
-import { dotProduct, scale, sub, add, distance, angleBetween, rotate } from "../scripts/math.js";
-// import { balls } from "../scripts/setupBalls.js";
+import { dotProduct, scale, sub, add, distance, angleBetween, rotate, norm } from "../scripts/math.js";
+import { SOUND } from "../scripts/sound.js";
 
 export class Ball {
     constructor({ pos, color, vel }) {
@@ -58,7 +58,7 @@ export class Ball {
         // ctx.closePath();
 
         // draw regular ball
-        ctx.shadowBlur = 3; 
+        ctx.shadowBlur = 3;
         ctx.shadowColor = "rgba(0, 0, 0, 0.15)";
         ctx.shadowOffsetX = 5;
         ctx.shadowOffsetY = 2;
@@ -81,7 +81,7 @@ export class Ball {
         this.handleTinyVelocities();
         if (this.inPocket) return;
         this.bounceOfWalls();
-        this.bounceOfBumpers(game.bumpers);
+        this.bounceOffBumpers(game.bumpers);
         this.checkPockets(game.pockets);
         this.collideWithBalls(game.balls);
         //this.handleTinyVelocities();
@@ -134,6 +134,11 @@ export class Ball {
             const w = scale(1 / Math.pow(dist, 2) * dotProduct(x_d, v_d), x_d);
             this.vel = sub(this.vel, w);
             ball.vel = add(ball.vel, w);
+            // play sound
+            const volume = Math.min(1, (norm(this.vel) + norm(ball.vel)) / 15);
+            SOUND.COLLISION.volume = volume;
+            // SOUND.COLLISION.volume = 0.3;
+            SOUND.COLLISION.play();
         })
     }
 
@@ -141,6 +146,10 @@ export class Ball {
         pockets.forEach(pocket => {
             if (pocket.includes(this)) {
                 this.inPocket = true;
+                // play sound
+
+                SOUND.POCKET.play();
+                SOUND.POCKET.volume = 0.3;
                 return;
             }
         })
@@ -169,7 +178,7 @@ export class Ball {
         };
     }
 
-    bounceOfBumpers(bumpers) {
+    bounceOffBumpers(bumpers) {
         bumpers.forEach(bumper => {
             const segment = bumper.intersectionSegment(this);
             if (segment != null) {
@@ -177,6 +186,12 @@ export class Ball {
                 const vector = sub(b, a);
                 const angle = angleBetween(this.vel, vector);
                 this.vel = rotate(2 * angle, this.vel);
+                // play sound
+                const volume = Math.min(1, norm(this.vel) / 20);                
+                SOUND.BUMPER.volume = volume;
+                // SOUND.BUMPER.volume = 0.3;
+                SOUND.BUMPER.play();
+
             }
         })
     }

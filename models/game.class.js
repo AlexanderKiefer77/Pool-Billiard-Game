@@ -2,6 +2,7 @@ import { COLORS } from "../scripts/setupBalls.js";
 import { Controller } from "../models/controller.class.js";
 import { drawCloth, drawWood } from "../scripts/table.js";
 import { openDialog, closeDialog } from "../scripts/dialog.js";
+import { SOUND } from "../scripts/sound.js";
 
 
 export class Game {
@@ -48,6 +49,9 @@ export class Game {
                 // window.alert("Black ball is in Pocket");
                 this.finish();
             } else if (this.whiteBall.inPocket) {
+                // play sound
+                SOUND.WHIP.play();
+                SOUND.WHIP.volume = 0.3;
                 this.whiteBall.reset(this);
             }
         }
@@ -59,14 +63,23 @@ export class Game {
         this.won = !this.whiteBall.inPocket && this.balls.every(ball => ball == this.whiteBall || ball.inPocket);
         if (this.won) {
             // window.alert("You won the game !")
+            // play sound
+            SOUND.WIN.play();
+            SOUND.WIN.volume = 0.3;
             openDialog("You won the game !")
         } else {
             // window.alert("You lost the game !")
+            // play sound
+            SOUND.LOSE.play();
+            SOUND.LOSE.volume = 0.3;
             openDialog("You lost the game !")
         }
     }
 
     restart() { // für Restart Button
+        // play sound
+        SOUND.WHIP.play();
+        SOUND.WHIP.volume = 0.3;
         closeDialog();
         this.balls.forEach(b => b.reset(this));
         this.won = null;

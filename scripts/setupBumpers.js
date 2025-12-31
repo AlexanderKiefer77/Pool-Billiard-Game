@@ -20,6 +20,7 @@ export function getBumpers() {
                 { x: canvas.width / 2 - pocketSize - width, y: margin + width }, // UR
                 { x: canvas.width / 2 - pocketSize, y: margin } // OR
             ],
+            shadow: { x: 0, y: 5 },
         }),
         new Bumper({ // top right
             coords: [
@@ -28,6 +29,7 @@ export function getBumpers() {
                 { x: canvas.width - pocketSize - margin - width - grace, y: margin + width }, // RU
                 { x: canvas.width - pocketSize - margin - grace, y: margin } // RO
             ],
+            shadow: { x: 0, y: 5 },
         }),
         new Bumper({ // side right
             coords: [
@@ -36,6 +38,7 @@ export function getBumpers() {
                 { x: canvas.width - (margin + width), y: canvas.height - margin - width - pocketSize - grace }, // LU
                 { x: canvas.width - margin, y: canvas.height - margin - pocketSize - grace } // RU
             ],
+            shadow: { x: -5, y: 0 },
         }),
         new Bumper({ // bottom right       
             coords: [
@@ -44,6 +47,7 @@ export function getBumpers() {
                 { x: canvas.width / 2 + pocketSize + width, y: canvas.height - (margin + width) }, // LO
                 { x: canvas.width / 2 + pocketSize, y: canvas.height - margin } // LU
             ],
+            shadow: { x: 0, y: -5 },
         }),
         new Bumper({ // bottom left
             coords: [
@@ -52,6 +56,7 @@ export function getBumpers() {
                 { x: margin + pocketSize + width + grace, y: canvas.height - (margin + width) }, // LO
                 { x: margin + pocketSize + grace, y: canvas.height - margin } // LU
             ],
+            shadow: { x: 0, y: -5 },
         }),
         new Bumper({ // side left
             coords: [
@@ -60,6 +65,7 @@ export function getBumpers() {
                 { x: margin + width, y: margin + pocketSize + width + grace }, // RO
                 { x: margin, y: margin + pocketSize + grace } // LO
             ],
+            shadow: { x: 5, y: 0 },
         }),
     ];
 }
